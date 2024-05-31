@@ -1,0 +1,71 @@
+import { Schema, model } from "mongoose";
+import slugify from "slugify";
+
+const bookSchema = new Schema(
+  {
+    bookName: {
+      type: String,
+      required: [true, "Book Name Must Be Required"],
+      unique: true,
+      trim: true,
+      minlength: [10, "Book Name must be at least 10 characters"],
+      maxlength: [60, "Book Name should be less than 60 characters"],
+    },
+    description: {
+      type: String,
+      required: [true, "Description Must Be Required"],
+      trim: true,
+      minlength: [50, "Description must be at least 50 characters"],
+      maxlength: [200, "Description should be less than 200 characters"],
+    },
+    category: {
+      type: String,
+      required: [true, "Category is required"],
+    },
+    bookCoverImage: {
+      public_id: {
+        type: String,
+        // required: true,
+      },
+      secure_url: {
+        type: String,
+        // required: true,
+      },
+    },
+    bookFile: {
+      public_id: {
+        type: String,
+        // required: true,
+      },
+      secure_url: {
+        type: String,
+        // required: true,
+      },
+    },
+    digitalAsset: {
+      public_id: {
+        type: String,
+        // required: true,
+      },
+      secure_url: {
+        type: String,
+        // required: true,
+      },
+    },
+    slug: String,
+  },
+  {
+    timestamps: true,
+  }
+);
+
+bookSchema.pre("save", function (next) {
+  const specialCharsRegex = /[*+~.()'"!:@]/g;
+  const sanitizedProductName = this.productName.replace(specialCharsRegex, "");
+  this.slug = slugify(sanitizedProductName, { lower: true });
+  next();
+});
+
+const Books = model("Books", bookSchema);
+
+export default Books;
