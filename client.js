@@ -1,7 +1,7 @@
-const clients = (app) => {
+const client = (app) => {
   app.get("/", (req, res) => {
     res.send("Hi World");
   });
 };
 
-export default clients;
+export default client;

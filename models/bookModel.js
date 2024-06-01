@@ -22,7 +22,29 @@ const bookSchema = new Schema(
       type: String,
       required: [true, "Category is required"],
     },
-    bookCoverImage: {
+    slug: String,
+  },
+  {
+    timestamps: true,
+  }
+);
+
+bookSchema.pre("save", function (next) {
+  const specialCharsRegex = /[*+~.()'"!:@]/g;
+  const sanitizedbookName = this.bookName.replace(specialCharsRegex, "");
+  this.slug = slugify(sanitizedbookName, { lower: true });
+  next();
+});
+
+const Books = model("Books", bookSchema);
+
+export default Books;
+
+/**
+ * 
+ * 
+ * 
+ * bookCoverImage: {
       public_id: {
         type: String,
         // required: true,
@@ -52,20 +74,6 @@ const bookSchema = new Schema(
         // required: true,
       },
     },
-    slug: String,
-  },
-  {
-    timestamps: true,
-  }
-);
-
-bookSchema.pre("save", function (next) {
-  const specialCharsRegex = /[*+~.()'"!:@]/g;
-  const sanitizedProductName = this.productName.replace(specialCharsRegex, "");
-  this.slug = slugify(sanitizedProductName, { lower: true });
-  next();
-});
-
-const Books = model("Books", bookSchema);
-
-export default Books;
+ * 
+ * 
+ */
