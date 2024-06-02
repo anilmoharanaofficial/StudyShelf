@@ -22,6 +22,36 @@ const bookSchema = new Schema(
       type: String,
       required: [true, "Category is required"],
     },
+    class: {
+      type: String,
+      // required: [true, "Class Must Be Required"],
+    },
+    coverImage: {
+      public_id: {
+        type: String,
+        required: true,
+      },
+      secure_url: {
+        type: String,
+        required: true,
+      },
+    },
+    bookFiles: {
+      public_id: {
+        type: String,
+        // required: true,
+      },
+      secure_url: {
+        type: String,
+        // required: true,
+      },
+    },
+    moreDetails: {
+      language: {
+        type: String,
+        required: [true, "Language Is Required"],
+      },
+    },
     slug: String,
   },
   {
@@ -39,41 +69,3 @@ bookSchema.pre("save", function (next) {
 const Books = model("Books", bookSchema);
 
 export default Books;
-
-/**
- * 
- * 
- * 
- * bookCoverImage: {
-      public_id: {
-        type: String,
-        // required: true,
-      },
-      secure_url: {
-        type: String,
-        // required: true,
-      },
-    },
-    bookFile: {
-      public_id: {
-        type: String,
-        // required: true,
-      },
-      secure_url: {
-        type: String,
-        // required: true,
-      },
-    },
-    digitalAsset: {
-      public_id: {
-        type: String,
-        // required: true,
-      },
-      secure_url: {
-        type: String,
-        // required: true,
-      },
-    },
- * 
- * 
- */
