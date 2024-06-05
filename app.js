@@ -7,6 +7,7 @@ import erroMiddleware from "./middleware/errorMiddleware.js";
 import userRoute from "./routes/userRoute.js";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
+import readingListRoute from "./routes/readingListRoute.js";
 
 const app = express();
 
@@ -21,6 +22,7 @@ client(app);
 // Routes
 app.use("/api/v1/book", bookRoute);
 app.use("/api/v1/user", userRoute);
+app.use("/api/v1/readingList", readingListRoute);
 
 // ERROR MIDDLEWARE
 app.use(erroMiddleware);

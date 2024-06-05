@@ -39,10 +39,10 @@ const userSchema = new Schema(
         type: String,
       },
     },
-    // bookCollection: {
-    //   type: [Schema.Types.ObjectId],
-    //   default: undefined,
-    // },
+    readingList: {
+      type: [Schema.Types.ObjectId],
+      default: undefined,
+    },
     forgotPasswordToken: "String",
     forgotPasswordExpiry: Date,
   },
