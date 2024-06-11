@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up</title>
+    <!-- STYLESHEET -->
+    <link rel="stylesheet" href="./styles/auth.css" />
+    <link rel="stylesheet" href="./styles/global.css" />
+  </head>
+  <body>
+    <!-- Toast Message -->
+    <div class="toast">
+      <i class="fa-regular fa-bell"></i>
+      <div class="toast-message">Hello</div>
+    </div>
+
+    <!-- SIGN UP CONTAINER STARTS HERE -->
+    <main class="autho-container">
+      <div class="container">
+        <!-- LEFT SECTION -->
+        <div class="autho-left">
+          <h1 class="heading">
+            Sign Up for<br />
+            Study Resources
+          </h1>
+          <p class="autho-para">
+            if you have an account<br />
+            you can
+            <span><a href="/login">Login here!</a></span>
+          </p>
+        </div>
+        <!-- MIDDLE SECTION -->
+        <div class="autho-middle">
+          <figure>
+            <img
+              src="https://res.cloudinary.com/drx2gahpl/image/upload/v1718034306/StudyInsta/Assets/%20illustrator/tyuabfdveiowqpitb5lw.png"
+              alt="illustrator"
+            />
+          </figure>
+        </div>
+        <!-- RIGH SECTION -->
+        <div class="autho-right">
+          <div class="autho-form">
+            <div class="auth-heading-mobile">
+              <h2>Sign Up</h2>
+              <p>To access thousands of Study Resources for free.</p>
+            </div>
+            <form id="signup">
+              <input
+                type="text"
+                placeholder="Enter Your Name"
+                id="Name"
+                name="Name"
+                required
+              />
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter Email"
+                required
+              />
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter Password"
+                required
+              />
+
+              <button type="submit" class="login-btn">Sign Up</button>
+            </form>
+
+            <!-- SOCIAL AUTH -->
+            <div class="alt-auth">
+              <div class="line"></div>
+              <!-- <span>Or continue with</span> -->
+              <p class="alt-login">Or continue with</p>
+              <div class="line"></div>
+            </div>
+
+            <div class="social-auth">
+              <img
+                class="social-auth-google"
+                src="./assets/icons/google.svg"
+                alt=""
+              />
+              <img
+                class="social-auth-apple"
+                src="./assets/icons/apple.svg"
+                alt=""
+              />
+              <img
+                class="social-auth-facebook"
+                src="./assets/icons/facebook.svg"
+                alt=""
+              />
+            </div>
+
+            <p class="auth-para-mobile">
+              if you have an account <br />
+              can
+              <span class="login-here"><a href="/login">Login here!</a></span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="./script/global.js"></script>
+    <script
+      src="https://kit.fontawesome.com/b90bc8d1f6.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

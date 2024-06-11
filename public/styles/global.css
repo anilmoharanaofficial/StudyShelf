@@ -1,0 +1,21 @@
+/* STYLING SCROLLBAR */
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 2px;
+  background: transparent;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1d8156;
+  border-radius: 10px;
+  border: 2px solid rgba(0, 0, 0, 0);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0d432c;
+}
