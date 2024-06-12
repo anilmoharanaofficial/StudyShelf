@@ -23,12 +23,12 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.engine("ejs", ejsMate);
 
-client(app);
-
 // Routes
 app.use("/api/v1/book", bookRoute);
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/readingList", readingListRoute);
+
+client(app);
 
 // ERROR MIDDLEWARE
 app.use(erroMiddleware);
