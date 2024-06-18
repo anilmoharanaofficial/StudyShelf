@@ -19,3 +19,20 @@ socialAuth.forEach((i) => {
       "Social login and sign-up are currently disabled. Please try again later.";
   });
 });
+
+// ////////////NORMALIZE DATE/////////////
+const normalizeDate = (dateString) => {
+  const date = new Date(dateString);
+  const options = { year: "numeric", month: "long", day: "numeric" };
+  return date.toLocaleDateString(undefined, options);
+};
+
+// ///////////////NORMALIZE NAME///////////
+const normalizeName = (name) => {
+  const userName = name.toLowerCase().split(" ");
+  // const normalize = userName[0].toUpperCase() + userName.slice(1);
+  const normalize = userName.map(
+    (part) => part.charAt(0).toUpperCase() + part.slice(1)
+  );
+  return normalize.join(" ");
+};

@@ -1,0 +1,53 @@
+<% layout('dashboard/layouts/boilerplate') -%>
+
+<main>
+  <!-- SIDEBAR -->
+  <%- include('../dashboard/layouts/sidebar') %>
+
+  <!-- PROFILE -->
+  <div class="main-content">
+    <div class="container">
+      <div class="user-details">
+        <div class="user-card">
+          <div class="my-profile">
+            <img
+              class="avatar"
+              src="https://res.cloudinary.com/drx2gahpl/image/upload/v1717342329/Learnodisha/Avatars/tnpwgw5zdvdstyuygamd.png"
+              alt=""
+            />
+            <h2>My Profile</h2>
+          </div>
+          <div>
+            <a href="/profile/change-password">
+              <button class="chnage-password">
+                <i class="fa-solid fa-lock"></i> Chnage Password
+              </button></a
+            >
+            <button class="delete-account">
+              <i class="fa-solid fa-trash"></i> Delete Account
+            </button>
+          </div>
+        </div>
+        <!-- User Details -->
+        <div class="user-data">
+          <form action="">
+            <div class="field">
+              <label for="fullname">You Name</label>
+              <input type="text" id="name" value="" disabled />
+            </div>
+            <div class="field">
+              <label for="fullname">Email</label>
+              <input type="email" id="email" value="" disabled />
+            </div>
+            <div class="field">
+              <label for="fullname">Created on</label>
+              <input type="text" id="date" value="" disabled />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- FOOTR -->
+    <%- include('../dashboard/layouts/footer') %>
+  </div>
+</main>

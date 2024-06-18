@@ -43,7 +43,7 @@ const signup = catchAsync(async (req, res, next) => {
     avatar: {
       public_id: "default_Avatar",
       secure_url:
-        "https://res.cloudinary.com/drx2gahpl/image/upload/v1717342329/Learnodisha/Avatars/tnpwgw5zdvdstyuygamd.png",
+        "https://res.cloudinary.com/drx2gahpl/image/upload/v1718600908/StudyInsta/Avatar/j8tinz0igl11b5gdn56y.png",
     },
   });
 
@@ -59,8 +59,11 @@ const signup = catchAsync(async (req, res, next) => {
   const token = await newUser.generateJWTToken();
   res.cookie("token", token, cookieOptions);
 
+  const returnTo = req.session.returnTo || "/";
+  delete req.session.returnTo;
+
   // Send Response
-  sendResponse(res, "User Signing Up Successfully", newUser);
+  sendResponse(res, "User Signing Up Successfully", newUser, returnTo);
 });
 
 // ///////////LOGIN////////////////
@@ -83,8 +86,11 @@ const login = catchAsync(async (req, res, next) => {
   user.password = undefined;
   res.cookie("token", token, cookieOptions);
 
+  const returnTo = req.session.returnTo;
+  delete req.session.returnTo;
+
   // Send response
-  sendResponse(res, "User Loggedin Successfully", user);
+  sendResponse(res, "User Loggedin Successfully", user, returnTo);
 });
 
 //////////////LOGOUT//////////////////
@@ -137,7 +143,7 @@ const update = catchAsync(async (req, res, next) => {
       const avatarDetails = await cloudinary.v2.uploader.upload(
         req.files.avatar[0].path,
         {
-          folder: "learnodisha/Avatars",
+          folder: "StudyInsta/Avatar",
           use_filename: true,
         }
       );
@@ -222,7 +228,7 @@ const changePassword = catchAsync(async (req, res, next) => {
 
   user.password = undefined;
 
-  sendResponse(res, "User Password Chnaged Successfully", user);
+  sendResponse(res, "Password Chnaged Successfully", user, "/profile");
 });
 
 /////////////FORGOT PASSWORD//////////////////////

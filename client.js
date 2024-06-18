@@ -1,6 +1,7 @@
 const client = (app) => {
+  // HOME
   app.get("/", (req, res) => {
-    res.send("Hi World");
+    res.render("home/index");
   });
 
   // AUTH
@@ -12,9 +13,23 @@ const client = (app) => {
     res.render("auth/login");
   });
 
+  // USER
+  app.get("/profile", (req, res) => {
+    res.render("user/profile");
+  });
+
+  app.get("/profile/change-password", (req, res) => {
+    res.render("user/changepassword");
+  });
+
+  // DASHBOARD
+  app.get("/dashboard", (req, res) => {
+    res.render("dashboard/dashboard");
+  });
+
   // PAGE NOT FOUND
   app.all("*", (req, res, next) => {
-    res.render("pageNotFound");
+    res.render("error/pageNotFound");
   });
 };
 

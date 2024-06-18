@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
   const registrationForm = document.getElementById("signup");
   const loginForm = document.getElementById("login");
+  const chnagePassword = document.getElementById("chnage-password");
+
   // const currentURL = window.location.pathname;
 
   const handleFormSubmit = async (form, url) => {
@@ -21,6 +23,12 @@ document.addEventListener("DOMContentLoaded", () => {
           message.textContent = responseData.message || "Success";
           ToastMessage();
           form.reset();
+
+          if (responseData.redirectUrl) {
+            window.location.href = responseData.redirectUrl;
+          } else {
+            return;
+          }
         } else {
           throw new Error(responseData.message || "Failed");
         }
@@ -39,4 +47,8 @@ document.addEventListener("DOMContentLoaded", () => {
   if (loginForm) {
     handleFormSubmit(loginForm, "/api/v1/user/login");
   }
+
+  // if (chnagePassword) {
+  //   handleFormSubmit(chnagePassword, "/api/v1/user/change-password");
+  // }
 });
