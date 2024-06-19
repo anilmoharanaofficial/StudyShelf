@@ -7,6 +7,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const currentURL = window.location.pathname;
   const logoutUser = document.getElementById("logout");
+  const deleteAccount = document.querySelector(".delete-account");
+  const overlay = document.querySelector(".overlay");
+  const deletionModel = document.querySelector(".delete-model");
+  const cancelDeletion = document.querySelectorAll(
+    ".closeModel, #delete-cancel"
+  );
+  const deleteConfirmation = document.getElementById("delete-confirm");
 
   // Fetch User Details
   const userDetails = async (url) => {
@@ -31,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
         avatar.src = responseData.data.avatar.secure_url;
       });
 
-      if (currentURL === "/profile") {
+      if (currentURL === "/profile" || "/profile/") {
         const userName = responseData.data.name.toString();
         name.value = normalizeName(userName);
         email.value = responseData.data.email;
@@ -42,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  userDetails("/api/v1/user/profile/");
+  userDetails("/api/v1/user/profile");
 
   // Logout USER
   if (logoutUser) {
@@ -62,6 +69,48 @@ document.addEventListener("DOMContentLoaded", () => {
         message.textContent = error || "Filed";
         ToastMessage();
       }
+    });
+  }
+
+  // DELETE ACCOUNT
+  if (deleteAccount) {
+    deleteAccount.addEventListener("click", async () => {
+      deletionModel.classList.add("active");
+      overlay.classList.add("active");
+
+      // Final Call For Delete Account
+      deleteConfirmation.addEventListener("click", async () => {
+        try {
+          const response = await fetch("/api/v1/user/delete", {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+          });
+
+          const responseData = await response.json();
+
+          if (response.ok) {
+            message.textContent = responseData.message || "Success";
+            ToastMessage();
+
+            deletionModel.classList.remove("active");
+            overlay.classList.remove("active");
+
+            setTimeout(() => {
+              window.location.href = "/";
+            }, 2000);
+          }
+        } catch (error) {
+          message.textContent = error.message || "Failed";
+          ToastMessage();
+        }
+      });
+    });
+
+    cancelDeletion.forEach((e) => {
+      e.addEventListener("click", () => {
+        deletionModel.classList.remove("active");
+        overlay.classList.remove("active");
+      });
     });
   }
 });
@@ -103,7 +152,6 @@ document.addEventListener("DOMContentLoaded", () => {
       } catch (error) {
         message.textContent = error.message || "Failed";
         ToastMessage();
-        console.log(error.message);
       }
     });
   };

@@ -7,6 +7,11 @@
   font-family: "Urbanist", sans-serif;
 }
 
+/* THEME COLOR */
+:root {
+  --toast-color: #00ffff;
+}
+
 body {
   background-color: #f6f6f6;
 }
@@ -50,11 +55,11 @@ body {
   -moz-border-radius: 0.7rem;
   -ms-border-radius: 0.7rem;
   -o-border-radius: 0.7rem;
-  opacity: 0; /* Start with opacity 0 */
-  transition: opacity 0.3s ease-in-out; /* Smooth transition for opacity */
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
 
   &.showToast {
-    opacity: 1; /* Make it visible when .show class is added */
+    opacity: 1;
   }
 
   & .fa-bell {

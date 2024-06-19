@@ -199,7 +199,7 @@ const deleteAccount = catchAsync(async (req, res, next) => {
   });
 
   // Send response
-  sendResponse(res, "User Account Deleted Successfully", user);
+  sendResponse(res, "Your account has been successfully deleted.", user);
 });
 
 // /////////////CHANGE PASSWORD////////////////////
