@@ -27,6 +27,14 @@ const client = (app) => {
     res.render("dashboard/dashboard");
   });
 
+  app.get("/dashboard/add", (req, res) => {
+    res.render("dashboard/add");
+  });
+
+  app.get("/dashboard/all", (req, res) => {
+    res.render("dashboard/all");
+  });
+
   // PAGE NOT FOUND
   app.all("*", (req, res, next) => {
     res.render("error/pageNotFound");

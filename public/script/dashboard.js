@@ -1,15 +1,15 @@
 document.addEventListener("DOMContentLoaded", () => {
   ///////////////////// HEADER STARTS HERE//////////////////////////
+  const currentURL = window.location.pathname;
+
   const userProfileImage = document.querySelector(".user-profile");
   const userProfilePopup = document.querySelector(".user-profile-popup");
-  // const userOption = document.querySelector(".user-option");
 
-  // Show the user profile popup on mouseover of the profile image
+  // SHOW THE USER PROFILE
   userProfileImage.addEventListener("click", () => {
     userProfilePopup.classList.add("show-user-profile-popup");
   });
 
-  // Hide the user profile popup on click outside
   document.addEventListener("click", (e) => {
     if (
       !userProfilePopup.contains(e.target) &&
@@ -18,4 +18,15 @@ document.addEventListener("DOMContentLoaded", () => {
       userProfilePopup.classList.remove("show-user-profile-popup");
     }
   });
+
+  //ACTIVE PATH HIGHLIGHTER
+  const navDashboard = document.querySelector(".nav-dashboard");
+  const navAllItem = document.querySelector(".nav-all");
+  const navAddNew = document.querySelector(".nav-add");
+  const navProfile = document.querySelector(".nav-profile");
+
+  activePath(navDashboard, currentURL, "/dashboard");
+  activePath(navAllItem, currentURL, "/dashboard/all");
+  activePath(navAddNew, currentURL, "/dashboard/add");
+  activePath(navProfile, currentURL, "/profile");
 });
