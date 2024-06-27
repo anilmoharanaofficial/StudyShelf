@@ -1,3 +1,6 @@
+//////////////ELEMENTS////////////////////
+const currentURL = window.location.pathname;
+
 ///////////////////// TOAST MESSAGE/////////////////////////////
 const message = document.querySelector(".toast-message");
 const toast = document.querySelector(".toast");
@@ -5,6 +8,20 @@ const toast = document.querySelector(".toast");
 const ToastMessage = () => {
   toast.classList.add("showToast");
   setTimeout(() => toast.classList.remove("showToast"), 3000);
+};
+
+/////////////PROGRESS STATUS///////////////
+const progressStatus = document.querySelector(".progress-status");
+const progressMessage = document.querySelector(".progress-message");
+
+const ProgressStatus = (message) => {
+  progressStatus.classList.add("showProgress");
+  progressMessage.innerHTML = message;
+};
+
+////////////STOP PROGRESS STATUS//////////////
+const closeProgressStatus = () => {
+  progressStatus.classList.remove("showProgress");
 };
 
 //////////////DISABLE SOCIAL AUTH MESSAGE/////////////
@@ -30,7 +47,6 @@ const normalizeDate = (dateString) => {
 /////////////////NORMALIZE NAME///////////
 const normalizeName = (name) => {
   const userName = name.toLowerCase().split(" ");
-  // const normalize = userName[0].toUpperCase() + userName.slice(1);
   const normalize = userName.map(
     (part) => part.charAt(0).toUpperCase() + part.slice(1)
   );

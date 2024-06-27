@@ -30,7 +30,6 @@ const sessionOptions = {
   secret: secretKey,
   resave: false,
   saveUninitialized: true,
-  // cookie: { secure: true },
 };
 app.use(session(sessionOptions));
 

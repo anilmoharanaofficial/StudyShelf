@@ -1,4 +1,5 @@
 import Books from "../models/bookModel.js";
+import User from "../models/userModel.js";
 import AppError from "../utils/AppError.js";
 import catchAsync from "../utils/catchAsync.js";
 import sendResponse from "../utils/response.js";
@@ -7,10 +8,14 @@ import fs from "fs";
 
 ////////////////// PUBLISH BOOK//////////////////
 const publish = catchAsync(async (req, res, next) => {
-  const { bookName, description, category, language } = req.body;
+  const { bookName, description, publisher, className, language, publishYear } =
+    req.body;
+
+  const userId = req.user.id;
+  const user = await User.findById(userId);
 
   // Check for required fields
-  if (!bookName || !description || !category) {
+  if (!bookName || !description || !publisher || !className) {
     return next(new AppError("All fields are required", 400));
   }
 
@@ -24,7 +29,8 @@ const publish = catchAsync(async (req, res, next) => {
   const newBook = new Books({
     bookName,
     description,
-    category,
+    publisher,
+    className,
     coverImage: {
       public_id: "Dummy",
       secure_url: "Dummy",
@@ -33,7 +39,8 @@ const publish = catchAsync(async (req, res, next) => {
       public_id: "Dummy",
       secure_url: "Dummy",
     },
-    moreDetails: { language },
+    moreDetails: { language, publishYear },
+    createdBy: user,
   });
 
   // Upload Files
@@ -94,7 +101,9 @@ const publish = catchAsync(async (req, res, next) => {
 
 ///////////////////////// VIEW////////////////////////////
 const view = catchAsync(async (req, res, next) => {
-  const books = await Books.find();
+  const books = await Books.find()
+    .sort({ createdAt: -1 })
+    .populate("createdBy", "name avatar");
 
   // Send Response
   sendResponse(res, "All Books", books);
@@ -223,7 +232,7 @@ const deleteBook = catchAsync(async (req, res, next) => {
   }
 
   // Send Response
-  sendResponse(res, "Book Has Been Successfully Deleted", book);
+  sendResponse(res, "Successfully Deleted", book);
 });
 
 export { publish, view, update, deleteBook };

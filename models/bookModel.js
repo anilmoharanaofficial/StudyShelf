@@ -18,13 +18,13 @@ const bookSchema = new Schema(
       minlength: [50, "Description must be at least 50 characters"],
       maxlength: [200, "Description should be less than 200 characters"],
     },
-    category: {
+    publisher: {
       type: String,
-      required: [true, "Category is required"],
+      required: [true, "publisher is required"],
     },
-    class: {
+    className: {
       type: String,
-      // required: [true, "Class Must Be Required"],
+      required: [true, "Class Must Be Required"],
     },
     coverImage: {
       public_id: {
@@ -51,8 +51,17 @@ const bookSchema = new Schema(
         type: String,
         required: [true, "Language Is Required"],
       },
+      publishYear: {
+        type: String,
+        required: [true, "Publish Year is Required"],
+      },
     },
     slug: String,
+    createdBy: {
+      type: [Schema.Types.ObjectId],
+      ref: "User",
+      required: true,
+    },
   },
   {
     timestamps: true,
