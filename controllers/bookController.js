@@ -8,14 +8,21 @@ import fs from "fs";
 
 ////////////////// PUBLISH BOOK//////////////////
 const publish = catchAsync(async (req, res, next) => {
-  const { bookName, description, publisher, className, language, publishYear } =
-    req.body;
+  const {
+    bookName,
+    description,
+    publisher,
+    className,
+    language,
+    publishYear,
+    category,
+  } = req.body;
 
   const userId = req.user.id;
   const user = await User.findById(userId);
 
   // Check for required fields
-  if (!bookName || !description || !publisher || !className) {
+  if (!bookName || !description || !publisher || !className || !category) {
     return next(new AppError("All fields are required", 400));
   }
 
@@ -31,6 +38,7 @@ const publish = catchAsync(async (req, res, next) => {
     description,
     publisher,
     className,
+    category,
     coverImage: {
       public_id: "Dummy",
       secure_url: "Dummy",
@@ -96,10 +104,15 @@ const publish = catchAsync(async (req, res, next) => {
   await newBook.save();
 
   // Send response
-  sendResponse(res, "Book has been successfully published", newBook);
+  sendResponse(
+    res,
+    "Book has been successfully published",
+    newBook,
+    "/dashboard/books"
+  );
 });
 
-///////////////////////// VIEW////////////////////////////
+///////////////////////// VIEW ALL BOOKS////////////////////////////
 const view = catchAsync(async (req, res, next) => {
   const books = await Books.find()
     .sort({ createdAt: -1 })
@@ -107,6 +120,20 @@ const view = catchAsync(async (req, res, next) => {
 
   // Send Response
   sendResponse(res, "All Books", books);
+});
+
+//////////////////////VIEW SINGLE BOOK//////////////////////////////
+const viewBook = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+
+  const book = await Books.findById(id);
+
+  if (!book) {
+    return next(AppError("Books Doesn't Exist", 500));
+  }
+
+  //Send Response
+  sendResponse(res, "Book has been successfully Updated", book);
 });
 
 /////////////////////////////// UPDATE////////////////////////////////
@@ -235,4 +262,4 @@ const deleteBook = catchAsync(async (req, res, next) => {
   sendResponse(res, "Successfully Deleted", book);
 });
 
-export { publish, view, update, deleteBook };
+export { publish, view, viewBook, update, deleteBook };

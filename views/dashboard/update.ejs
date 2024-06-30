@@ -6,15 +6,15 @@
 
   <div class="main-content">
     <div class="container">
-      <form action="" id="add-new" enctype="multipart/form-data">
+      <form action="" id="update-book" enctype="multipart/form-data">
         <!-- Header -->
         <div class="form-header">
           <div>
-            <h1>Add New</h1>
-            <p>Add new Books & Syllabus for students</p>
+            <h1>Update Book</h1>
+            <p>Update The Books & Syllabus</p>
           </div>
           <button type="submit">
-            <i class="fa-solid fa-cloud-arrow-up"></i> Publish
+            <i class="fa-solid fa-pen-to-square"></i> Update
           </button>
         </div>
         <!-- Form Container 1-->
@@ -105,7 +105,6 @@
                   accept="image/*"
                   id="coverImage"
                   name="coverImage"
-                  required
                 />
               </div>
               <!-- <div class="featured-image">
@@ -136,7 +135,7 @@
             <div class="field">
               <div class="form-group">
                 <label for="bookFiles">Upload Files</label>
-                <input type="file" id="bookFiles" name="bookFiles" required />
+                <input type="file" id="bookFiles" name="bookFiles" />
               </div>
               <!-- <div class="form-group">
                 <label for="publisher">File Link (Optional)</label>

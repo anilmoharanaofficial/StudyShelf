@@ -27,9 +27,9 @@ document.addEventListener("DOMContentLoaded", () => {
   activePath(navAddNew, currentURL, "/dashboard/add");
   activePath(navProfile, currentURL, "/profile");
 
-  //////////////// SHOW THE ALL ITEMS//////////////////////////////
-  const allItems = document.querySelector(".all-posts");
-  const allBooks = async () => {
+  //////////////// SHOW THE ALL BOOKS//////////////////////////////
+  const allbooks = document.querySelector(".all-books");
+  const fetchAllBooks = async () => {
     try {
       const response = await fetch("/api/v1/book", {
         method: "GET",
@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
         });
 
-        allItems.innerHTML += `
+        allbooks.innerHTML += `
         <div class="box">
   <div class="content">
     <img src="${data.coverImage.secure_url}" alt="Cover Image" />
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
     <div class="author-info">${authorsInfo}</div>
     <div class="action-btns">
       <i class="fa-regular fa-eye view" data-url="${data.slug}"></i>
-      <i class="fa-regular fa-pen-to-square"></i>
+      <i class="fa-regular fa-pen-to-square update" book-id="${data._id}"></i>
       <i class="fa-solid fa-trash delete-item" data-id="${data._id}"></i>
       <i class="fa-solid fa-share-nodes share-item"></i>
     </div>
@@ -146,9 +146,10 @@ document.addEventListener("DOMContentLoaded", () => {
 </div>
         `;
       });
-      viewItem();
-      shareItem();
-      DeleteItem();
+      viewBook();
+      shareBook();
+      DeleteBook();
+      getBookID();
     } catch (error) {
       message.textContent = error || "Filed";
       ToastMessage();
@@ -156,13 +157,13 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   if (currentURL === "/dashboard/books") {
-    allBooks();
+    fetchAllBooks();
     ProgressStatus("Loading....");
   }
 
   ////////////VIEW ITEM//////////////////
-  function viewItem() {
-    allItems.addEventListener("click", (e) => {
+  function viewBook() {
+    allbooks.addEventListener("click", (e) => {
       if (e.target.classList.contains("view")) {
         const url = e.target.getAttribute("data-url");
         window.location.href = `/${url}`;
@@ -170,9 +171,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  //////////SHARE ITEM///////////////////
-  function shareItem() {
-    allItems.addEventListener("click", (e) => {
+  //////////SHARE BOOK///////////////////
+  function shareBook() {
+    allbooks.addEventListener("click", (e) => {
       if (e.target.classList.contains("share-item")) {
         const shareModel = document.querySelector(".share-model");
         const overlay = document.querySelector(".overlay");
@@ -195,8 +196,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   ///////////DELETE ITEM////////////
-  function DeleteItem() {
-    allItems.addEventListener("click", (e) => {
+  function DeleteBook() {
+    allbooks.addEventListener("click", (e) => {
       if (e.target.classList.contains("delete-item")) {
         // ELEMENTS
         const overlay = document.querySelector(".overlay");
@@ -264,10 +265,127 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  //////////////CREATE NEW ITEM///////////////
-  const createNewItem = () => {};
+  //////////////ADD NEW///////////////
+  const addNewForm = document.getElementById("add-new");
+
+  const addNew = async (form, url) => {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      // Progress Status
+      ProgressStatus("Adding....");
+
+      // Store Form Data
+      const formData = new FormData(form);
+
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          body: formData,
+        });
+
+        const responseData = await response.json();
+
+        if (response.ok) {
+          // Close Progress Status
+          closeProgressStatus();
+
+          // Show Success Message
+          message.textContent = responseData.message;
+          ToastMessage();
+
+          // Redirect to the all books page after 3 second
+          setInterval(() => {
+            window.location.href = responseData.redirectUrl;
+          }, 3000);
+        }
+      } catch (error) {
+        message.textContent = error.message;
+        ToastMessage();
+      }
+    });
+  };
 
   if (currentURL === "/dashboard/add") {
-    createNewItem();
+    addNew(addNewForm, "/api/v1/book");
   }
+
+  //////////////// UPDATE BOOKS DATA/////////////////////////
+
+  //Required Elements
+  const updateBookForm = document.getElementById("update-book");
+
+  // GET BOOK ID
+  const getBookID = () => {
+    allbooks.addEventListener("click", (e) => {
+      if (e.target.classList.contains("update")) {
+        const ID = e.target.getAttribute("book-id");
+        window.location.href = `/dashboard/${ID}/update`;
+      }
+    });
+  };
+
+  const updateBook = async (form) => {
+    // Extract the book ID from URL
+    const path = window.location.pathname;
+    const bookID = path.replace("/dashboard/", "").replace("/update", "");
+
+    // Fetch book data
+    const fetchBookData = await fetch(`/api/v1/book/${bookID}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const bookData = await fetchBookData.json();
+    const book = bookData.data;
+
+    if (fetchBookData.ok) {
+      document.getElementById("bookName").value = book.bookName;
+      document.getElementById("description").value = book.description;
+      document.getElementById("className").value = book.className;
+      document.getElementById("publisher").value = book.publisher;
+      document.getElementById("language").value = book.moreDetails.language;
+      document.getElementById("category").value = book.category;
+      document.getElementById("publishYear").value =
+        book.moreDetails.publishYear;
+    }
+
+    //Update book data
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+
+      // Progress Status
+      ProgressStatus("Updating....");
+
+      try {
+        const updateBookData = await fetch(`/api/v1/book/${bookID}`, {
+          method: "PUT",
+          body: formData,
+        });
+
+        const response = await updateBookData.json();
+
+        if (updateBookData.ok) {
+          // Close Progress Status
+          closeProgressStatus();
+
+          // Show Success Message
+          message.textContent = response.message;
+          ToastMessage();
+        } else {
+          message.textContent = response.error;
+          ToastMessage();
+        }
+      } catch (error) {
+        message.textContent = error.message;
+        ToastMessage();
+      }
+    });
+  };
+
+  updateBook(updateBookForm);
 });

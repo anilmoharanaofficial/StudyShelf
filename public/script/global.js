@@ -59,3 +59,19 @@ const activePath = (element, url, path) => {
     element.classList.add("active-menu");
   }
 };
+
+////////////////////FEATURED IMAGE PREVIEW/////////////////
+function previewImage(event) {
+  const input = event.target;
+  const reader = new FileReader();
+
+  reader.onload = function () {
+    const preview = document.getElementById("featuredImagePreview");
+    preview.src = reader.result;
+    preview.style.opacity = "1";
+  };
+
+  if (input.files && input.files[0]) {
+    reader.readAsDataURL(input.files[0]);
+  }
+}

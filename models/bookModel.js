@@ -15,8 +15,8 @@ const bookSchema = new Schema(
       type: String,
       required: [true, "Description Must Be Required"],
       trim: true,
-      minlength: [50, "Description must be at least 50 characters"],
-      maxlength: [200, "Description should be less than 200 characters"],
+      minlength: [100, "Description must be at least 50 characters"],
+      maxlength: [500, "Description should be less than 200 characters"],
     },
     publisher: {
       type: String,
@@ -25,6 +25,10 @@ const bookSchema = new Schema(
     className: {
       type: String,
       required: [true, "Class Must Be Required"],
+    },
+    category: {
+      type: String,
+      required: [true, "Category Must Be Required"],
     },
     coverImage: {
       public_id: {

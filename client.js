@@ -35,6 +35,10 @@ const client = (app) => {
     res.render("dashboard/books");
   });
 
+  app.get("/dashboard/:id/update", (req, res) => {
+    res.render("dashboard/update");
+  });
+
   // PAGE NOT FOUND
   app.all("*", (req, res, next) => {
     res.render("error/pageNotFound");
