@@ -1,0 +1,82 @@
+/* Media query for desktop */
+@media screen and (min-width: 481px) {
+  header {
+    & div:first-child {
+      & .hamburger-menu {
+        display: none;
+      }
+    }
+
+    & div:last-child {
+      .user-icon {
+        display: none;
+      }
+    }
+  }
+}
+
+/* Media query for mobile */
+@media screen and (max-width: 480px) {
+  header {
+    display: flex;
+
+    & div:first-child {
+      .hamburger-menu {
+        margin-right: 0.5rem;
+        font-size: 1.2rem;
+        cursor: pointer;
+      }
+
+      & .serach-icon,
+      .serach-box {
+        display: none;
+      }
+    }
+
+    & div:last-child {
+      P,
+      button {
+        display: none;
+      }
+
+      .user-icon {
+        padding: 0.5rem 0.5rem 0.5rem;
+        cursor: pointer;
+      }
+    }
+  }
+
+  /* Sidebar styles */
+  .sidebar {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 999;
+    width: 261px;
+    background-color: white;
+    overflow-y: auto;
+
+    transition: transform 0.3s ease;
+    transform: translateX(-100%);
+  }
+
+  /* Main Content */
+  .main-content {
+    padding-left: 2;
+  }
+
+  .sidebar.sidebar-open {
+    transform: translateX(0);
+  }
+
+  /* .main-content.main-content-open {
+    margin-left: 261px;
+  } */
+
+  /* REMOVING SCROLLBAR */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}

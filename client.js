@@ -1,7 +1,7 @@
 const client = (app) => {
   // HOME
   app.get("/", (req, res) => {
-    res.render("home/index");
+    res.render("client/index");
   });
 
   // AUTH
