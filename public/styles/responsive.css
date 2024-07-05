@@ -7,10 +7,8 @@
       }
     }
 
-    & div:last-child {
-      .user-icon {
-        display: none;
-      }
+    & .user-icon {
+      display: none;
     }
   }
 }

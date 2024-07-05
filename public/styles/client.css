@@ -207,12 +207,11 @@ main {
   margin-top: 1.5rem;
 }
 
-/* BOOKS */
+/* ALL BOOKS - HOME PAGE */
 & .card-container {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
 
   & .card {
     background-color: #ffffff;
@@ -268,6 +267,110 @@ main {
     border: none;
     padding: 0.8rem 1.8rem 0.8rem 1.8rem;
     border-radius: 0.3rem;
+  }
+
+  .disable-more-btn {
+    cursor: not-allowed;
+    background-color: #c9c3c3;
+  }
+}
+
+/* VIEW BOOK - SINGLE BOOK */
+.view-book-container {
+  margin-top: 1.5rem;
+
+  .book-title {
+    margin-bottom: 2rem;
+  }
+
+  .book-content {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+
+    .book-media {
+      width: 50%;
+
+      img {
+        border-radius: 0.5rem;
+        width: 600px;
+      }
+
+      #book-file {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      button {
+        display: flex;
+        align-items: center;
+        gap: 0.2rem;
+        border: none;
+        padding: 0.8rem 1.5rem 0.8rem 1.5rem;
+        color: #d8dde3;
+        border-radius: 0.3rem;
+        font-weight: 600;
+      }
+
+      .download-book {
+        background-color: var(--primary-color);
+      }
+
+      .read-book-online {
+        background-color: #fb3364;
+      }
+    }
+
+    .book-info {
+      width: 50%;
+
+      & div:first-child {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 0.3rem;
+
+        #publsih-date {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+
+        .share-bookMark {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+
+          i {
+            background-color: #d8dde3;
+            padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            opacity: 0.8;
+
+            &:hover {
+              opacity: 1;
+            }
+          }
+        }
+      }
+
+      span {
+        display: inline;
+        font-weight: bold;
+
+        .fa-star {
+          color: var(--primary-color);
+        }
+      }
+
+      .description {
+        margin-top: 1rem;
+      }
+    }
   }
 }
 

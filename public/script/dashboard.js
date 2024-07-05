@@ -166,7 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
     allbooks.addEventListener("click", (e) => {
       if (e.target.classList.contains("view")) {
         const url = e.target.getAttribute("data-url");
-        window.location.href = `/${url}`;
+        window.location.href = `/book/${url}`;
       }
     });
   }

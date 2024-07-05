@@ -5,6 +5,7 @@ import {
   update,
   view,
   viewBook,
+  viewBookByslug,
 } from "../controllers/bookController.js";
 import upload from "../middleware/mullter.js";
 import { isLoggedIn } from "../middleware/authMiddleware.js";
@@ -23,6 +24,6 @@ bookRoute
   .delete(deleteBook)
   .get(viewBook);
 
-// bookRoute.route("/slug").get(viewBook);
+bookRoute.route("/slug/:slug").get(viewBookByslug);
 
 export default bookRoute;

@@ -5,6 +5,7 @@ import catchAsync from "../utils/catchAsync.js";
 import sendResponse from "../utils/response.js";
 import cloudinary from "cloudinary";
 import fs from "fs";
+import filters from "../utils/filters.js";
 
 ////////////////// PUBLISH BOOK//////////////////
 const publish = catchAsync(async (req, res, next) => {
@@ -114,9 +115,18 @@ const publish = catchAsync(async (req, res, next) => {
 
 ///////////////////////// VIEW ALL BOOKS////////////////////////////
 const view = catchAsync(async (req, res, next) => {
-  const books = await Books.find()
-    .sort({ createdAt: -1 })
+  const filter = new filters(Books.find(), req.query)
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate()
     .populate("createdBy", "name avatar");
+
+  const books = await filter.query;
+
+  // const books = await Books.find()
+  //   .sort({ createdAt: -1 })
+  //   .populate("createdBy", "name avatar");
 
   // Send Response
   sendResponse(res, "All Books", books);
@@ -133,7 +143,21 @@ const viewBook = catchAsync(async (req, res, next) => {
   }
 
   //Send Response
-  sendResponse(res, "Book has been successfully Updated", book);
+  sendResponse(res, "Book", book);
+});
+
+////////////////VIEW BOOK BY SLUG///////////////
+const viewBookByslug = catchAsync(async (req, res, next) => {
+  const { slug } = req.params;
+
+  const book = await Books.findOne({ slug });
+
+  if (!book) {
+    return next(new AppError("Book doesn't exist", 404));
+  }
+
+  // Send response
+  sendResponse(res, "Book", book);
 });
 
 /////////////////////////////// UPDATE////////////////////////////////
@@ -262,4 +286,4 @@ const deleteBook = catchAsync(async (req, res, next) => {
   sendResponse(res, "Successfully Deleted", book);
 });
 
-export { publish, view, viewBook, update, deleteBook };
+export { publish, view, viewBook, update, deleteBook, viewBookByslug };

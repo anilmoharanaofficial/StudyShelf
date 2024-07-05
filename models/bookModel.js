@@ -60,7 +60,10 @@ const bookSchema = new Schema(
         required: [true, "Publish Year is Required"],
       },
     },
-    slug: String,
+    slug: {
+      type: String,
+      unique: true,
+    },
     createdBy: {
       type: [Schema.Types.ObjectId],
       ref: "User",

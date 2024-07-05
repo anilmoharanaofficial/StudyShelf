@@ -104,6 +104,89 @@ a {
   }
 }
 
+/* TABLE */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 3px 0;
+  font-size: 16px;
+  text-align: left;
+}
+
+table thead tr {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: left;
+  font-weight: bold;
+}
+
+table th,
+table td {
+  padding: 12px 15px;
+  border: 1px solid #dddddd;
+}
+
+table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+table tbody td:first-child {
+  font-weight: bold;
+}
+
+/* Note */
+.note {
+  margin-top: 1rem;
+  position: relative;
+  padding: 16px 20px 16px 50px;
+  background: #e1f5fe;
+  color: #3c4043;
+  font-size: 0.9rem;
+  line-height: 1.6em;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.note::before {
+  content: "";
+  width: 60px;
+  height: 60px;
+  background: #81b4dc;
+  display: block;
+  border-radius: 50%;
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  opacity: 0.1;
+}
+.note::after {
+  content: "\002A";
+  position: absolute;
+  left: 18px;
+  top: 16px;
+  font-size: 20px;
+  min-width: 15px;
+  text-align: center;
+}
+.note.wr {
+  background: #ffdfdf;
+  color: #48525c;
+}
+.note.wr::before {
+  background: #e65151;
+}
+.note.wr::after {
+  content: "\0021";
+}
+
 /* STYLING SCROLLBAR */
 
 ::-webkit-scrollbar {
