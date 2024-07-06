@@ -281,3 +281,79 @@ h1 {
     text-align: center;
   }
 }
+
+/* TOAST MESSAGE */
+.toast {
+  position: absolute;
+  background-color: var(--toast-color);
+  padding: 1.2rem 1rem;
+  border-radius: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  -webkit-border-radius: 0.7rem;
+  -moz-border-radius: 0.7rem;
+  -ms-border-radius: 0.7rem;
+  -o-border-radius: 0.7rem;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+
+  &.showToast {
+    opacity: 1;
+  }
+
+  & .fa-bell {
+    font-size: 2rem;
+  }
+
+  & .toast-message {
+    font-size: 1.6rem;
+    color: #020000;
+    font-weight: 400;
+  }
+}
+
+/* PROGRESS STATUS */
+.progress-status {
+  position: absolute;
+  background-color: var(--progress-color);
+  padding: 0.7rem 1rem;
+  border-radius: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+
+  &.showProgress {
+    opacity: 1;
+  }
+
+  .fa-spinner {
+    font-size: 1.2rem;
+    color: #ffffff;
+    animation: spin 1s linear infinite;
+  }
+
+  .progress-message {
+    font-size: 1.2rem;
+    color: #ffffff;
+    font-weight: 400;
+  }
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

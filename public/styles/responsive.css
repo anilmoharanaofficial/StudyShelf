@@ -52,12 +52,15 @@
     left: 0;
     bottom: 0;
     z-index: 999;
-    width: 261px;
+    width: 271px;
     background-color: white;
     overflow-y: auto;
-
     transition: transform 0.3s ease;
     transform: translateX(-100%);
+
+    .nav {
+      margin-top: 2rem;
+    }
   }
 
   /* Main Content */
@@ -76,5 +79,12 @@
   /* REMOVING SCROLLBAR */
   ::-webkit-scrollbar {
     display: none;
+  }
+
+  /* FOOTER */
+  .footer {
+    .copyright {
+      margin-bottom: 5rem;
+    }
   }
 }

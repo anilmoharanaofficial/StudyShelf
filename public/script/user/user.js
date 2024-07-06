@@ -3,8 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const loginForm = document.getElementById("login");
   const chnagePassword = document.getElementById("chnage-password");
 
-  // const currentURL = window.location.pathname;
-
   const handleFormSubmit = async (form, url) => {
     form.addEventListener("submit", async (e) => {
       e.preventDefault();

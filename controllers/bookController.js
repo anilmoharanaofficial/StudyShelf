@@ -124,10 +124,6 @@ const view = catchAsync(async (req, res, next) => {
 
   const books = await filter.query;
 
-  // const books = await Books.find()
-  //   .sort({ createdAt: -1 })
-  //   .populate("createdBy", "name avatar");
-
   // Send Response
   sendResponse(res, "All Books", books);
 });

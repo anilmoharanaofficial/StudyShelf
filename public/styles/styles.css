@@ -1,8 +1,34 @@
+@import url("https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;700;900&family=Poppins:wght@200;300;400;600&family=Quicksand:wght@300;400;500;600;700&family=Urbanist:wght@300;400;500;600;700;800;900&display=swap");
+
 * {
-  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Urbanist", sans-serif;
 }
 
-/* HEADER STARTS HERE */
+/* THEME COLOR */
+:root {
+  --bg-color: #f6f6f6;
+  --primary-color: #1d8156;
+  --toast-color: #00ffff;
+  --progress-color: #04b3fe;
+}
+
+body {
+  background-color: #f6f6f6;
+}
+
+/* DEFAULT STYLE */
+button {
+  cursor: pointer;
+}
+a {
+  text-decoration: none;
+  color: var(--font-color);
+}
+
+/* HEADER START HERE */
 header {
   display: flex;
   justify-content: space-between;
@@ -95,7 +121,6 @@ header {
     display: none;
   }
 }
-
 /* HEADER ENDS HERE */
 
 main {
@@ -105,13 +130,14 @@ main {
 
 /* SIDEBAR STARTS HERE */
 .sidebar {
-  background-color: var(--container-color);
+  /* background-color: var(--container-color); */
   width: 261px;
   border-right: solid #e3dada 1px;
   overflow-y: auto;
   transition: all 0.3s ease-in-out;
 
   & .nav {
+    margin-top: 0.5rem;
     padding: 0.5rem 0.75rem;
     height: 230px;
     display: flex;
@@ -203,177 +229,6 @@ main {
   margin: 3rem 1.5rem 1.5rem 1.5rem;
 }
 
-.books {
-  margin-top: 1.5rem;
-}
-
-/* ALL BOOKS - HOME PAGE */
-& .card-container {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-
-  & .card {
-    background-color: #ffffff;
-    width: 280px;
-    height: 300px;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    margin: 1rem 0.8rem 1rem 0.8rem;
-    transition: transform 0.3s ease-in-out;
-
-    &:hover {
-      transform: translateY(-5px);
-    }
-
-    & .card-img {
-      width: 100%;
-      border-radius: 0.5rem;
-    }
-
-    & .card-titlt {
-      margin-top: 1.1rem;
-      font-size: 18px;
-      font-weight: 600;
-    }
-
-    & .card-info {
-      margin-top: 1.2rem;
-
-      button {
-        border: none;
-        background-color: var(--primary-color);
-        color: #ffffff;
-        padding: 0.4rem 0.6rem 0.4rem 0.6rem;
-        border-radius: 0.2rem;
-      }
-
-      .class-name {
-        margin-right: 0.4rem;
-      }
-    }
-  }
-}
-
-.more-item {
-  margin-top: 2.5rem;
-  display: flex;
-  justify-content: center;
-
-  .more-btn {
-    background-color: var(--primary-color);
-    color: #ffffff;
-    font-size: 16px;
-    border: none;
-    padding: 0.8rem 1.8rem 0.8rem 1.8rem;
-    border-radius: 0.3rem;
-  }
-
-  .disable-more-btn {
-    cursor: not-allowed;
-    background-color: #c9c3c3;
-  }
-}
-
-/* VIEW BOOK - SINGLE BOOK */
-.view-book-container {
-  margin-top: 1.5rem;
-
-  .book-title {
-    margin-bottom: 2rem;
-  }
-
-  .book-content {
-    display: flex;
-    gap: 1rem;
-    width: 100%;
-
-    .book-media {
-      width: 50%;
-
-      img {
-        border-radius: 0.5rem;
-        width: 600px;
-      }
-
-      #book-file {
-        margin-top: 1rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 1rem;
-      }
-
-      button {
-        display: flex;
-        align-items: center;
-        gap: 0.2rem;
-        border: none;
-        padding: 0.8rem 1.5rem 0.8rem 1.5rem;
-        color: #d8dde3;
-        border-radius: 0.3rem;
-        font-weight: 600;
-      }
-
-      .download-book {
-        background-color: var(--primary-color);
-      }
-
-      .read-book-online {
-        background-color: #fb3364;
-      }
-    }
-
-    .book-info {
-      width: 50%;
-
-      & div:first-child {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding-bottom: 0.3rem;
-
-        #publsih-date {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-        }
-
-        .share-bookMark {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-
-          i {
-            background-color: #d8dde3;
-            padding: 0.5rem 0.5rem 0.5rem 0.5rem;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            opacity: 0.8;
-
-            &:hover {
-              opacity: 1;
-            }
-          }
-        }
-      }
-
-      span {
-        display: inline;
-        font-weight: bold;
-
-        .fa-star {
-          color: var(--primary-color);
-        }
-      }
-
-      .description {
-        margin-top: 1rem;
-      }
-    }
-  }
-}
-
 /* Footer */
 
 .footer {
@@ -421,3 +276,185 @@ main {
     }
   }
 }
+
+/* TOAST MESSAGE */
+.toast {
+  position: absolute;
+  background-color: var(--toast-color);
+  padding: 1.2rem 1rem;
+  border-radius: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  -webkit-border-radius: 0.7rem;
+  -moz-border-radius: 0.7rem;
+  -ms-border-radius: 0.7rem;
+  -o-border-radius: 0.7rem;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+
+  &.showToast {
+    opacity: 1;
+  }
+
+  & .fa-bell {
+    font-size: 2rem;
+  }
+
+  & .toast-message {
+    font-size: 1.6rem;
+    color: #020000;
+    font-weight: 400;
+  }
+}
+
+/* PROGRESS STATUS */
+.progress-status {
+  position: absolute;
+  background-color: var(--progress-color);
+  padding: 0.7rem 1rem;
+  border-radius: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+
+  &.showProgress {
+    opacity: 1;
+  }
+
+  .fa-spinner {
+    font-size: 1.2rem;
+    color: #ffffff;
+    animation: spin 1s linear infinite;
+  }
+
+  .progress-message {
+    font-size: 1.2rem;
+    color: #ffffff;
+    font-weight: 400;
+  }
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* TABLE */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 3px 0;
+  font-size: 16px;
+  text-align: left;
+}
+
+table thead tr {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: left;
+  font-weight: bold;
+}
+
+table th,
+table td {
+  padding: 12px 15px;
+  border: 1px solid #dddddd;
+}
+
+table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+table tbody td:first-child {
+  font-weight: bold;
+}
+
+/* Note */
+.note {
+  margin-top: 1rem;
+  position: relative;
+  padding: 16px 20px 16px 50px;
+  background: #e1f5fe;
+  color: #3c4043;
+  font-size: 0.9rem;
+  line-height: 1.6em;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.note::before {
+  content: "";
+  width: 60px;
+  height: 60px;
+  background: #81b4dc;
+  display: block;
+  border-radius: 50%;
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  opacity: 0.1;
+}
+.note::after {
+  content: "\002A";
+  position: absolute;
+  left: 18px;
+  top: 16px;
+  font-size: 20px;
+  min-width: 15px;
+  text-align: center;
+}
+.note.wr {
+  background: #ffdfdf;
+  color: #48525c;
+}
+.note.wr::before {
+  background: #e65151;
+}
+.note.wr::after {
+  content: "\0021";
+}
+
+/* STYLING SCROLLBAR */
+
+/* ::-webkit-scrollbar {
+  width: 4px;
+  height: 2px;
+  background: transparent;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  display: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1d8156;
+  border-radius: 10px;
+  border: 2px solid rgba(0, 0, 0, 0);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0d432c;
+} */

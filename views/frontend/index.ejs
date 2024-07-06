@@ -1,0 +1,20 @@
+<% layout('frontend/layouts/boilerplate') -%>
+
+<main>
+  <!-- SIDEBAR -->
+  <%- include('./layouts/sidebar') %>
+
+  <!-- MAIN CONTENT STARTS HERE -->
+  <div class="main-content" id="content">
+    <!-- DATA  -->
+    <div class="books">
+      <div class="card-container"></div>
+      <div class="more-item">
+        <button class="more-btn">Load More</button>
+      </div>
+    </div>
+    <!-- FOOTR STARTS HERE -->
+    <%- include('./layouts/footer') %>
+  </div>
+  <!-- MAIN CONTENT ENDS HERE -->
+</main>

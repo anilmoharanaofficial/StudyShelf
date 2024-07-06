@@ -1,8 +1,6 @@
 //////////////ELEMENTS////////////////////
 const currentURL = window.location.pathname;
 
-////////////////////API CALLS/////////////////////
-
 ///////////////////// TOAST MESSAGE/////////////////////////////
 const message = document.querySelector(".toast-message");
 const toast = document.querySelector(".toast");

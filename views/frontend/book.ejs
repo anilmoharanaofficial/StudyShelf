@@ -1,0 +1,73 @@
+<% layout('frontend/layouts/boilerplate') -%>
+
+<main>
+  <!-- SIDEBAR -->
+  <%- include('./layouts/sidebar') %>
+
+  <!-- MAIN CONTENT STARTS HERE -->
+  <div class="main-content" id="content">
+    <div class="view-book-container">
+      <div class="book-content">
+        <h1 class="book-title"></h1>
+        <!-- BOOK INFO -->
+        <div class="book-info">
+          <div id="publsih-date">
+            <i class="fa-regular fa-clock"></i>
+            <p id="date"></p>
+          </div>
+          <div class="share-bookMark">
+            <i class="fa-regular fa-bookmark"></i>
+            <i class="fa-regular fa-share-from-square"></i>
+          </div>
+        </div>
+        <!-- COVER IMAGE -->
+        <div class="cover-image">
+          <img id="view-book-image" src="" alt="" />
+        </div>
+        <!-- BOOK CONTENT -->
+        <div class="book-contnet">
+          <p class="description"></p>
+          <!-- TBALE -->
+          <table>
+            <tbody>
+              <tr>
+                <td>Class Name</td>
+                <td id="className"></td>
+              </tr>
+              <tr>
+                <td>Language</td>
+                <td id="bookLang"></td>
+              </tr>
+              <tr>
+                <td>Publish Year</td>
+                <td id="pubYear"></td>
+              </tr>
+              <tr>
+                <td>Publisher</td>
+                <td id="Publisher"></td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- BOOK FILE -->
+          <div id="book-file">
+            <button class="download-book">
+              <i class="fa-solid fa-download"></i> Download
+            </button>
+            <button class="read-book-online">
+              <i class="fa-solid fa-eye"></i> Read Online
+            </button>
+          </div>
+        </div>
+        <!-- NOTE -->
+        <p class="note">
+          If you find any outdated subjects with unavailable download links,
+          please feel free to leave a comment below.
+        </p>
+      </div>
+    </div>
+
+    <!-- FOOTR STARTS HERE -->
+    <%- include('./layouts/footer') %>
+  </div>
+  <!-- MAIN CONTENT ENDS HERE -->
+</main>
