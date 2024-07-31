@@ -113,6 +113,14 @@
           opacity: 1;
         }
       }
+
+      #bookmarked {
+        color: #2f00ff;
+      }
+
+      .removeBookMarkButton {
+        display: none;
+      }
     }
   }
 
@@ -136,6 +144,8 @@
 
   #book-file {
     margin-top: 2rem;
+    margin-bottom: 2rem;
+
     display: flex;
     justify-content: center;
     align-items: center;

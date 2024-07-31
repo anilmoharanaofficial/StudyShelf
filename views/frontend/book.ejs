@@ -16,8 +16,13 @@
             <p id="date"></p>
           </div>
           <div class="share-bookMark">
-            <i class="fa-regular fa-bookmark"></i>
-            <i class="fa-regular fa-share-from-square"></i>
+            <i class="fa-regular fa-bookmark" id="bookmark"></i>
+            <i
+              class="fa-solid fa-bookmark removeBookMarkButton"
+              id="bookmarked"
+            ></i>
+            <i class="fa-regular fa-share-from-square" id="share"></i>
+            <%- include('../UI/shareModel') %>
           </div>
         </div>
         <!-- COVER IMAGE -->

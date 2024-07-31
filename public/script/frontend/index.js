@@ -1,51 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
   ///////////////////////ELEMENTS////////////////////
-  const loginBtn = document.querySelector(".login-button");
-  const userProfile = document.querySelector(".user");
-
   const bookContainer = document.querySelector(".card-container");
   const pageLoadBtn = document.querySelector(".more-btn");
 
-  //////////////FETCH USER DETAILS///////////////////
-  const fetchUserDetails = async () => {
-    try {
-      const response = await fetch("/api/v1/user/profile/", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+  const shareBtn = document.getElementById("share");
+  const bookMarkBtn = document.getElementById("bookmark");
+  const bookMarkedBtn = document.getElementById("bookmarked");
 
-      const responseData = await response.json();
-      const userData = responseData.data;
-
-      if (!response.ok) {
-        //Hide User Profile
-        loginBtn.classList.remove("hide");
-      }
-
-      if (response.ok) {
-        //Hide Login Button on Header
-        userProfile.classList.remove("hide");
-
-        // Display User Profile on Header
-        document.getElementById("user-avatar").src = userData.avatar.secure_url;
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  fetchUserDetails();
-
-  //////////////FETCH BOOKS/////////////////////
-
+  //////////////FETCH BOOKS *HomePage *Category/////////////////////
   let currentPage =
     new URLSearchParams(window.location.search).get("page") || 1;
   const limit = 12;
-
-  // Show Fetching Status
-  // ProgressStatus("Loading...");
 
   const fetchBooks = async (page, limit) => {
     try {
@@ -144,35 +109,92 @@ document.addEventListener("DOMContentLoaded", () => {
       const file = book.bookFiles.secure_url;
       window.location.href = file;
     });
+
+    // BookMark
+    const bookid = book._id;
+    bookMarkBtn.addEventListener("click", () => {
+      bookMark(bookid);
+    });
+    bookMarked(bookid);
+
+    // Remove BookMark
+    bookMarkedBtn.addEventListener("click", () => {
+      removeBookMark(bookid);
+    });
+
+    // SHARE MODEL
+    shareModel(shareBtn);
   };
 
   if (currentURL === `/book/${slug}`) {
     viewBook();
   }
 
-  //////////////////////NAV//////////////////////////
-  const navLink = document.querySelectorAll(".nav-link");
+  ///////////////////HANDEL BOOKMARK//////////////////
+  const bookMark = async (id) => {
+    const bookId = {
+      bookId: id,
+    };
 
-  // navLink.forEach((link) => {
-  //   link.addEventListener("click", async (e) => {
-  //     e.preventDefault();
+    try {
+      const response = await fetch("/api/v1/readingList", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(bookId),
+      });
 
-  //     const page = link.getAttribute("view");
+      const responseData = await response.json();
 
-  //     try {
-  //       const response = await fetch(`/${page}`);
-  //       if (!response.ok) {
-  //         throw new Error(
-  //           `Network response was not ok: ${response.statusText}`
-  //         );
-  //       }
-  //       const html = await response.text();
-  //       document.getElementById("content").innerHTML = html;
-  //     } catch (error) {
-  //       console.error("Error loading page:", error);
-  //     }
-  //   });
-  // });
+      if (!response.ok) {
+        if (responseData.redirect) {
+          window.location.href = responseData.redirect;
+        }
+        return;
+      }
 
-  ////////////////VIEW BOOK/////////////////////////
+      if (response.ok) {
+        bookMarkBtn.classList.add("removeBookMarkButton");
+        bookMarkedBtn.classList.remove("removeBookMarkButton");
+      } else {
+        console.error(responseData.message);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  /////////////////HIGHLIGH *IF BOOKMARKED /////////////////
+  const bookMarked = (bookId) => {
+    if (!localStorage.getItem("userData")) {
+      fetchUserDetails();
+    }
+
+    let data = JSON.parse(localStorage.getItem("userData"));
+
+    if (data.readingList.includes(bookId)) {
+      bookMarkBtn.classList.add("removeBookMarkButton");
+      bookMarkedBtn.classList.remove("removeBookMarkButton");
+    }
+  };
+
+  ////////////////REMOVE BOOKMARK///////////////
+  const removeBookMark = async (id) => {
+    const response = await fetch(`/api/v1/readingList/remove/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const responseData = await response.json();
+
+    if (response.ok) {
+      bookMarkBtn.classList.remove("removeBookMarkButton");
+      bookMarkedBtn.classList.add("removeBookMarkButton");
+    } else {
+      console.log(responseData.message);
+    }
+  };
 });

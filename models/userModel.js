@@ -41,7 +41,7 @@ const userSchema = new Schema(
     },
     readingList: {
       type: [Schema.Types.ObjectId],
-      default: undefined,
+      ref: "Books",
     },
     forgotPasswordToken: "String",
     forgotPasswordExpiry: Date,
@@ -72,6 +72,7 @@ userSchema.methods = {
         id: this._id,
         email: this.email,
         role: this.role,
+        readingList: this.readingList,
       },
       process.env.JWT_SECRET,
       { expiresIn: "90d" }

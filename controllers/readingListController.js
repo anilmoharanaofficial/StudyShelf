@@ -6,70 +6,39 @@ import sendResponse from "../utils/response.js";
 
 // ///////////ADD TO READING LIST//////////////////
 const addToReadingList = catchAsync(async (req, res, next) => {
-  const { id } = req.body;
-  const userId = req.user.id;
+  const { id } = req.user;
+  const { bookId } = req.body;
 
-  // Check for valid item id
-  const item = await Books.findById(id);
-
-  if (!item) {
-    return next(new AppError("item Not Found", 500));
+  // Validate Book
+  const book = await Books.findById(bookId);
+  if (!book) {
+    return next(new AppError("Book does not exist", 404));
   }
 
-  //Check for if iteam already exists in reading list
-  const user = await User.findById(userId).populate("readingList");
+  // Fetch User with Reading List IDs
+  const user = await User.findById(id).select("readingList");
 
-  // if (user.readingList.includes(item.id)) {
-  //   return next(new AppError("Item Already Exists in Reading List", 500));
-  // } else {
-  //   next();
-  // }
+  // Check if Book is Already in Reading List
+  const isBookInReadingList = user.readingList.some(
+    (item) => item.toString() === bookId.toString()
+  );
+  if (isBookInReadingList) {
+    return next(new AppError("Book is already in the reading list", 400));
+  }
 
-  // Add items to reading collections
-  user.readingList = item.id;
-
-  // Save User Deatils
+  // Add Book to Reading List
+  user.readingList.push(bookId);
   await user.save();
 
   // Send Response
-  sendResponse(res, "Item Successfully Added To Reading List.", item);
+  res.status(200).json({
+    success: true,
+    message: "Book added to reading list",
+  });
 });
 
 /////////////VIEW READING LISTS////////////////////////
-const viewReadingList = catchAsync(async (req, res, next) => {
-  const userId = req.user.id;
-  const user = await User.findById(userId).populate("readingList");
-
-  if (!user) {
-    return next(new AppError("User not found", 500));
-  }
-
-  const readingList = user.readingList;
-
-  if (readingList) {
-    const getAllItemDetails = readingList.map(async (item) => {
-      const detailedItem = await Books.findById(item._id);
-      return {
-        itemId: item._id,
-        itemName: detailedItem.bookName,
-        category: detailedItem.category,
-      };
-    });
-    const iteamDetails = await Promise.all(getAllItemDetails);
-
-    return res.status(200).json({
-      success: true,
-      message: "All Items in Your Reading List",
-      result: iteamDetails.length,
-      items: iteamDetails,
-    });
-  } else {
-    return res.status(200).json({
-      success: true,
-      message: "Your reading list is empty!",
-    });
-  }
-});
+const viewReadingList = catchAsync(async (req, res, next) => {});
 
 // ///////////////REMOVE ITEMS FROM READING LISTS////////////////
 const removeItemsReadingList = catchAsync(async (req, res, next) => {
@@ -91,7 +60,7 @@ const removeItemsReadingList = catchAsync(async (req, res, next) => {
   }
 
   // Send Response
-  sendResponse(res, "Product removed from cart successfully.", user);
+  sendResponse(res, "Removed");
 });
 
 export { addToReadingList, viewReadingList, removeItemsReadingList };

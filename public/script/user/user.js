@@ -1,8 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
+  ///////////////////////ELEMENTS////////////////////
+  const loginBtn = document.querySelector(".login-button");
+  const userProfile = document.querySelector(".user");
+
   const registrationForm = document.getElementById("signup");
   const loginForm = document.getElementById("login");
-  const chnagePassword = document.getElementById("chnage-password");
 
+  ////////////////HANDEL *SINGUP AND *LOGIN////////////////////////
   const handleFormSubmit = async (form, url) => {
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -27,6 +31,9 @@ document.addEventListener("DOMContentLoaded", () => {
           } else {
             return;
           }
+
+          // User Loging Status
+          userLoggedInStatus(true);
         } else {
           throw new Error(responseData.message || "Failed");
         }
@@ -46,7 +53,47 @@ document.addEventListener("DOMContentLoaded", () => {
     handleFormSubmit(loginForm, "/api/v1/user/login");
   }
 
-  // if (chnagePassword) {
-  //   handleFormSubmit(chnagePassword, "/api/v1/user/change-password");
-  // }
+  ////////////////CHECK USER LOGGED IN OR NOT/////////////
+  const userLoggedInStatus = (status) => {
+    window.localStorage.setItem("loggedInStatus", status);
+  };
+
+  let isLoggedIn = window.localStorage.getItem("loggedInStatus");
+
+  ////////////////FETCH USER DETAILS////////////////////
+  let userData = null;
+
+  const fetchUserData = async () => {
+    try {
+      const response = await fetch("/api/v1/user/profile/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const responseData = await response.json();
+      userData = responseData.data;
+
+      if (response.ok) {
+        //Hide Login Button on Header
+        userProfile.classList.remove("hide");
+
+        // Display User Profile on Header
+        document.getElementById("user-avatar").src = userData.avatar.secure_url;
+      }
+
+      // Store user data in local storage
+      localStorage.setItem("userData", JSON.stringify(userData));
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
+  if (isLoggedIn === "true") {
+    fetchUserData();
+  } else {
+    // Show Login Button
+    loginBtn.classList.remove("hide");
+  }
 });
