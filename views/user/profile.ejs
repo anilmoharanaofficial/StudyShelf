@@ -1,8 +1,9 @@
-<% layout('dashboard/layouts/boilerplate') -%>
+<% layout('frontend/layouts/boilerplate') -%>
 
 <main>
   <!-- SIDEBAR -->
-  <%- include('../dashboard/layouts/sidebar') %>
+
+  <%- include('./Layouts/sidebar') %>
 
   <!-- PROFILE -->
   <div class="main-content">
@@ -18,11 +19,6 @@
             <h2>My Profile</h2>
           </div>
           <div>
-            <a href="/profile/change-password">
-              <button class="chnage-password">
-                <i class="fa-solid fa-lock"></i> Chnage Password
-              </button></a
-            >
             <button class="delete-account">
               <i class="fa-solid fa-trash"></i> Delete Account
             </button>
@@ -67,6 +63,6 @@
       </div>
     </div>
     <!-- FOOTR -->
-    <%- include('../dashboard/layouts/footer') %>
+    <%- include('../frontend/layouts/footer') %>
   </div>
 </main>

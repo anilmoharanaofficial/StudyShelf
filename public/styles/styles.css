@@ -94,7 +94,6 @@ header {
     padding: 1rem 2rem 1rem 2rem;
     border-radius: 0.5rem;
     z-index: 1;
-    opacity: 0;
 
     .user-option {
       display: flex;
@@ -122,8 +121,8 @@ header {
     color: #ffffff;
   }
 
-  .show-user-profile-popup {
-    opacity: 1;
+  .hide-user-profile-popup {
+    display: none;
   }
 
   /* Hide Login Button or User Profile */
@@ -291,7 +290,7 @@ main {
 .toast {
   position: absolute;
   background-color: var(--toast-color);
-  padding: 1.2rem 1rem;
+  padding: 0.8rem 1rem;
   border-radius: 0.7rem;
   display: flex;
   align-items: center;
@@ -312,11 +311,11 @@ main {
   }
 
   & .fa-bell {
-    font-size: 2rem;
+    font-size: 1rem;
   }
 
   & .toast-message {
-    font-size: 1.6rem;
+    font-size: 1rem;
     color: #020000;
     font-weight: 400;
   }

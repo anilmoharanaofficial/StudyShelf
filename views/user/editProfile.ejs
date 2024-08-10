@@ -1,0 +1,56 @@
+<% layout('frontend/layouts/boilerplate') -%>
+
+<main>
+  <!-- SIDEBAR -->
+
+  <%- include('./Layouts/sidebar') %>
+
+  <!-- PROFILE -->
+  <div class="main-content">
+    <div class="container">
+      <div class="user-details">
+        <form action="" id="update-profile-data" enctype="multipart/form-data">
+          <div class="user-card">
+            <div class="my-profile">
+              <img
+                class="avatar"
+                src="https://res.cloudinary.com/drx2gahpl/image/upload/v1717342329/Learnodisha/Avatars/tnpwgw5zdvdstyuygamd.png"
+                alt=""
+              />
+              <h2>Edit Profile</h2>
+            </div>
+            <div>
+              <button type="submit" class="edit__account">
+                <i class="fa-solid fa-floppy-disk"></i> Save
+              </button>
+            </div>
+          </div>
+
+          <!-- User Details -->
+          <div class="user-data">
+            <div class="form__container">
+              <div class="field">
+                <label for="fullname">You Name</label>
+                <input type="text" id="name" name="name" />
+              </div>
+              <div class="field">
+                <label for="fullname">Email</label>
+                <input type="email" id="email" name="email" />
+              </div>
+              <div class="field">
+                <label for="avatar">Upload Image</label>
+                <input type="file" accept="image/*" id="avatar" name="avatar" />
+              </div>
+              <div class="field">
+                <label for="fullname">Created on</label>
+                <input type="text" id="date" disabled />
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- FOOTR -->
+    <%- include('../frontend/layouts/footer') %>
+  </div>
+</main>

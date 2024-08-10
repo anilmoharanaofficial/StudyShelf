@@ -26,6 +26,10 @@ const client = (app) => {
     res.render("user/changepassword");
   });
 
+  app.get("/profile/edit-profile", (req, res) => {
+    res.render("user/editProfile");
+  });
+
   // DASHBOARD
   app.get("/dashboard", (req, res) => {
     res.render("dashboard/dashboard");
