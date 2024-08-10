@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-  //////////// SHOW THE USER PROFILE////////////////
+  ///////////////////////////////////////////
+  //SHOW THE USER PROFILE
   const userProfileImage = document.querySelector(".user-profile");
   const userProfilePopup = document.querySelector(".user-profile-popup");
 
@@ -16,7 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  ////////////ACTIVE PATH HIGHLIGHTER//////////////////
+  ////////////////////////////////////
+  //ACTIVE PATH HIGHLIGHTER
   const navDashboard = document.querySelector(".nav-dashboard");
   const navAllItem = document.querySelector(".nav-all");
   const navAddNew = document.querySelector(".nav-add");
@@ -27,11 +29,19 @@ document.addEventListener("DOMContentLoaded", () => {
   activePath(navAddNew, currentURL, "/dashboard/add");
   activePath(navProfile, currentURL, "/profile");
 
-  //////////////// SHOW THE ALL BOOKS//////////////////////////////
+  ////////////////////////////////////////////
+  ///SHOW THE ALL BOOKS
   const allbooks = document.querySelector(".all-books");
-  const fetchAllBooks = async () => {
+  const loadMoreBookBtn = document.querySelector(".load__more__btn");
+
+  // Pagination
+  let currentPage =
+    new URLSearchParams(window.location.search).get("page") || 1;
+  const limit = 10;
+
+  const fetchAllBooks = async (page, limit) => {
     try {
-      const response = await fetch("/api/v1/book", {
+      const response = await fetch(`/api/v1/book?page=${page}&limit=${limit}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -146,6 +156,13 @@ document.addEventListener("DOMContentLoaded", () => {
 </div>
         `;
       });
+
+      // Hide Load More Buttom
+      if (limit > data.length) {
+        loadMoreBookBtn.classList.add("disable-more-btn");
+        loadMoreBookBtn.disabled = true;
+      }
+
       viewBook();
       shareBook();
       DeleteBook();
@@ -157,11 +174,26 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   if (currentURL === "/dashboard/books") {
-    fetchAllBooks();
+    fetchAllBooks(currentPage, limit);
     ProgressStatus("Loading....");
+
+    // Handle Pagination
+    loadMoreBookBtn.addEventListener("click", () => {
+      currentPage++;
+      fetchAllBooks(currentPage, limit);
+      updateURL(currentPage);
+    });
+
+    // Update URL *Add Currect Page on URL
+    const updateURL = (page) => {
+      const url = new URL(window.location);
+      url.searchParams.set("page", page);
+      window.history.pushState({}, "", url);
+    };
   }
 
-  ////////////VIEW ITEM//////////////////
+  /////////////////////////////////
+  //VIEW ITEM
   function viewBook() {
     allbooks.addEventListener("click", (e) => {
       if (e.target.classList.contains("view")) {
@@ -171,7 +203,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  //////////SHARE BOOK///////////////////
+  ////////////////////////////////////
+  //SHARE BOOK
   function shareBook() {
     allbooks.addEventListener("click", (e) => {
       if (e.target.classList.contains("share-item")) {
@@ -195,7 +228,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  ///////////DELETE ITEM////////////
+  /////////////////////////////////////
+  //DELETE ITEM
   function DeleteBook() {
     allbooks.addEventListener("click", (e) => {
       if (e.target.classList.contains("delete-item")) {
@@ -265,7 +299,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  //////////////ADD NEW///////////////
+  //////////////////////////////////
+  //ADD NEW
   const addNewForm = document.getElementById("add-new");
 
   const addNew = async (form, url) => {
@@ -310,7 +345,8 @@ document.addEventListener("DOMContentLoaded", () => {
     addNew(addNewForm, "/api/v1/book");
   }
 
-  //////////////// UPDATE BOOKS DATA/////////////////////////
+  ///////////////////////////////////////////
+  //UPDATE BOOKS DATA
 
   //Required Elements
   const updateBookForm = document.getElementById("update-book");
