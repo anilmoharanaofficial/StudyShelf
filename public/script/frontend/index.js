@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-  ///////////////////////ELEMENTS////////////////////
+  ///////////////////////////////////////////
+  //ELEMENTS
   const bookContainer = document.querySelector(".card-container");
   const pageLoadBtn = document.querySelector(".more-btn");
 
@@ -7,7 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const bookMarkBtn = document.getElementById("bookmark");
   const bookMarkedBtn = document.getElementById("bookmarked");
 
-  //////////////FETCH BOOKS *HomePage *Category/////////////////////
+  /////////////////////////////////////////////
+  //FETCH BOOKS *HomePage *Category
   let currentPage =
     new URLSearchParams(window.location.search).get("page") || 1;
   const limit = 12;
@@ -75,7 +77,8 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
-  //////////////////VIEW BOOK////////////////////////
+  /////////////////////////////////////////////////
+  /////////VIEW BOOK
 
   // Extract The Slug From URL
   const path = window.location.pathname;
@@ -130,7 +133,8 @@ document.addEventListener("DOMContentLoaded", () => {
     viewBook();
   }
 
-  ///////////////////HANDEL BOOKMARK//////////////////
+  ////////////////////////////////////////////////
+  //////HANDEL BOOKMARK
   const bookMark = async (id) => {
     const bookId = {
       bookId: id,
@@ -165,7 +169,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  /////////////////HIGHLIGH *IF BOOKMARKED /////////////////
+  //////////////////////////////////////////////
+  //HIGHLIGH *IF BOOKMARKED
   const bookMarked = (bookId) => {
     if (!localStorage.getItem("userData")) {
       fetchUserDetails();
@@ -179,7 +184,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  ////////////////REMOVE BOOKMARK///////////////
+  //////////////////////////////////////////////////
+  //REMOVE BOOKMARK
   const removeBookMark = async (id) => {
     const response = await fetch(`/api/v1/readingList/remove/${id}`, {
       method: "GET",

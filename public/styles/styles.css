@@ -83,14 +83,17 @@ header {
     border-radius: 50%;
     cursor: pointer;
     border: solid 2px #c1b5b5;
+    position: relative;
   }
 
   .user-profile-popup {
     position: absolute;
     background-color: #050404;
-    right: 15px;
+    top: 7%;
+    right: 4%;
     padding: 1rem 2rem 1rem 2rem;
     border-radius: 0.5rem;
+    z-index: 1;
     opacity: 0;
 
     .user-option {
@@ -102,14 +105,21 @@ header {
       margin-top: 1.5rem;
     }
 
-    a {
+    .dash__board {
+      margin-bottom: 1.5rem;
+    }
+
+    a,
+    p {
       color: #ffffff;
+      cursor: pointer;
     }
   }
 
   .fa-user,
-  .fa-right-from-bracket {
-    color: #000000;
+  .fa-right-from-bracket,
+  .fa-gauge {
+    color: #ffffff;
   }
 
   .show-user-profile-popup {

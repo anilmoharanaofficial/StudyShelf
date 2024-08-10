@@ -1,8 +1,10 @@
-//////////////ELEMENTS////////////////////
+//////////////////////////////////
+//ELEMENTS
 const currentURL = window.location.pathname;
 const href = window.location.href;
 
-///////////////////// TOAST MESSAGE/////////////////////////////
+//////////////////////////////////////////////////
+//TOAST MESSAGE
 const message = document.querySelector(".toast-message");
 const toast = document.querySelector(".toast");
 
@@ -11,7 +13,8 @@ const ToastMessage = () => {
   setTimeout(() => toast.classList.remove("showToast"), 3000);
 };
 
-/////////////PROGRESS STATUS///////////////
+//////////////////////////////////////
+//PROGRESS STATUS
 const progressStatus = document.querySelector(".progress-status");
 const progressMessage = document.querySelector(".progress-message");
 
@@ -20,12 +23,14 @@ const ProgressStatus = (message) => {
   progressMessage.innerHTML = message;
 };
 
-////////////STOP PROGRESS STATUS//////////////
+//////////////////////////////////////////
+//STOP PROGRESS STATUS
 const closeProgressStatus = () => {
   progressStatus.classList.remove("showProgress");
 };
 
-//////////////DISABLE SOCIAL AUTH MESSAGE/////////////
+//////////////////////////////////////////
+//DISABLE SOCIAL AUTH MESSAGE
 const socialAuth = document.querySelectorAll(
   ".social-auth-google, .social-auth-apple, .social-auth-facebook"
 );
@@ -38,14 +43,16 @@ socialAuth.forEach((i) => {
   });
 });
 
-//////////////NORMALIZE DATE/////////////
+///////////////////////////////////////////
+//NORMALIZE DATE
 const normalizeDate = (dateString) => {
   const date = new Date(dateString);
   const options = { year: "numeric", month: "long", day: "numeric" };
   return date.toLocaleDateString(undefined, options);
 };
 
-/////////////////NORMALIZE NAME///////////
+/////////////////////////////////////////
+//NORMALIZE NAME
 const normalizeName = (name) => {
   const userName = name.toLowerCase().split(" ");
   const normalize = userName.map(
@@ -54,14 +61,16 @@ const normalizeName = (name) => {
   return normalize.join(" ");
 };
 
-///////////ACTIVE PATH HIGHLIGHTER////////////
+//////////////////////////////////////////
+//ACTIVE PATH HIGHLIGHTER
 const activePath = (element, url, path) => {
   if (element && url === path) {
     element.classList.add("active-menu");
   }
 };
 
-////////////////////FEATURED IMAGE PREVIEW/////////////////
+//////////////////////////////////////////////////
+//FEATURED IMAGE PREVIEW
 function previewImage(event) {
   const input = event.target;
   const reader = new FileReader();
@@ -77,7 +86,8 @@ function previewImage(event) {
   }
 }
 
-/////////////////SHARE MODEL//////////////////
+//////////////////////////////////////////////
+//SHARE MODEL
 
 const shareModel = (el) => {
   el.addEventListener("click", () => {

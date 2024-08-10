@@ -1,12 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
-  ///////////////////////ELEMENTS////////////////////
+  ////////////////////////////////////////////////
+  //ELEMENTS
   const loginBtn = document.querySelector(".login-button");
   const userProfile = document.querySelector(".user");
+  const userOptions = document.querySelector(".user-profile-popup");
+  const dashboardNavBtn = document.querySelector(".dash__board");
 
   const registrationForm = document.getElementById("signup");
   const loginForm = document.getElementById("login");
 
-  ////////////////HANDEL *SINGUP AND *LOGIN////////////////////////
+  /////////////////////////////////////////////////
+  ///HANDEL *SINGUP AND *LOGIN
   const handleFormSubmit = async (form, url) => {
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -25,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
           message.textContent = responseData.message || "Success";
           ToastMessage();
           form.reset();
+          userLoggedInStatus(true);
 
           if (responseData.redirectUrl) {
             window.location.href = responseData.redirectUrl;
@@ -32,8 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
           }
 
-          // User Loging Status
-          userLoggedInStatus(true);
+          // userLoggedInStatus(true);
         } else {
           throw new Error(responseData.message || "Failed");
         }
@@ -53,14 +57,38 @@ document.addEventListener("DOMContentLoaded", () => {
     handleFormSubmit(loginForm, "/api/v1/user/login");
   }
 
-  ////////////////CHECK USER LOGGED IN OR NOT/////////////
-  const userLoggedInStatus = (status) => {
+  //////////////////////////////////////////
+  //HANDLE LOGOUT
+  const logout = document.querySelector(".logout");
+  logout.addEventListener("click", async () => {
+    try {
+      const response = await fetch("/api/v1/user/logout");
+
+      if (response.ok) {
+        window.location.href = "/";
+        userLoggedInStatus(false);
+        userLocalData({});
+      }
+    } catch (error) {
+      message.textContent = responseData.error;
+      ToastMessage();
+    }
+  });
+
+  /////////////////////////////////////////////
+  //CHECK USER LOGGED IN OR NOT
+  function userLoggedInStatus(status) {
     window.localStorage.setItem("loggedInStatus", status);
-  };
+  }
 
-  let isLoggedIn = window.localStorage.getItem("loggedInStatus");
+  ////////////////////////////////////////////////////
+  //STORE USER DATA IN LOCALSTORAGE
+  function userLocalData(userData) {
+    window.localStorage.setItem("userData", JSON.stringify(userData));
+  }
 
-  ////////////////FETCH USER DETAILS////////////////////
+  /////////////////////////////////////////////
+  //FETCH USER DETAILS
   let userData = null;
 
   const fetchUserData = async () => {
@@ -84,16 +112,29 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       // Store user data in local storage
-      localStorage.setItem("userData", JSON.stringify(userData));
+      userLocalData(userData);
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
   };
 
-  if (isLoggedIn === "true") {
+  let isLoggedIn = JSON.parse(window.localStorage.getItem("loggedInStatus"));
+  if (isLoggedIn) {
     fetchUserData();
   } else {
     // Show Login Button
     loginBtn.classList.remove("hide");
+  }
+
+  /////////////////////////////////////////
+  //HANDLE USER OPTIONS
+  userProfile.addEventListener("click", () => {
+    userOptions.classList.toggle("show-user-profile-popup");
+  });
+
+  // Hide Dashboard Nav Button *If Noraml User
+  let { role } = JSON.parse(window.localStorage.getItem("userData"));
+  if (role !== "ADMIN") {
+    userOptions.removeChild(dashboardNavBtn);
   }
 });
